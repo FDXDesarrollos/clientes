@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+		<div class="card">
+			<div class="card-header text-primary h2" th:text="${titulo}"></div>
+			<div class="card-body">
+				<a class="btn btn-success" th:href="@{/nuevo}" role="button">Nuevo</a>
+				<br>
+				<br>
+				<table class="table table-striped table-bordered">
+					<thead class="thead-dark">
+						<tr>
+							<th>ID</th>
+							<th>NOMBRE</th>
+							<th>APELLIDO</th>
+							<th>CORREO</th>
+							<th class="text-center">FECHA</th>
+							<th class="text-center">ACCIONES</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente: ${clientes}">
+							<td th:text="${cliente.id}"></td>
+							<td th:text="${cliente.nombre}"></td>
+							<td th:text="${cliente.apellido}"></td>
+							<td th:text="${cliente.email}"></td>
+							<td th:text="${#dates.format(cliente.fecha, 'dd/MM/yyyy')}" class="text-center"></td>
+							<td class="text-center">
+							<a 	th:href="@{/editar/} + ${cliente.id}" th:text="'Editar'"
+								class="btn btn-warning btn-sm" role="button"
+								title="Editar el registro."> <!-- <i class="fas fa-pencil-alt" aria-hidden="true"></i> -->
+							</a> 
+							<a th:href="@{/eliminar/} + ${cliente.id}" th:text="'Eliminar'"
+								class="btn btn-danger btn-sm" role="button"
+								title="Eliminar el registro"
+								onclick="return confirm('¿Eliminar registro?');"> <!-- <i class="fas fa-trash" aria-hidden="true"></i> -->
+							</a>
+							<a th:href="@{/detalle/} + ${cliente.id}" th:text="'Detalle'"
+								class="btn btn-info btn-sm" role="button"
+								title="Ver detalle"
+							</a>							
+							</td>
+						</tr>
+					</tbody>
+					<tfoot></tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
